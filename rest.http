@@ -13,7 +13,7 @@ GET http://localhost:8005/health
 ### questions - answers
 GET http://localhost:8011/health
 
-GET http://localhost:8012/health
+GET http://localhost:8013/health
 
 ### slides - forms - externals
 GET http://localhost:8021/health
@@ -26,20 +26,26 @@ GET http://localhost:8023/health
 GET http://localhost:8031/health
 
 GET http://localhost:8032/health
-
-### local
-GET http://localhost:8000/health
 # }}}
 
 ### auth bypass
 GET http://localhost:8003/auth/bypass/1
 Accept: application/json
 
-# {{{ example
+# {{{ profile
 
-GET http://localhost:8000/api/v1/example
+GET http://localhost:8000/api/v1/profile
+Accpet: application/json
+Authorization: Bearer <token>
+
+# only robot can hits this endpoint
+POST http://localhost:8000/api/v1/profile/token
+Accpet: application/json
+Authorization: Bearer <token>
+Content-Type: application/json
+
+GET http://localhost:8000/api/v1/profiles/1
 Accept: application/json
 Authorization: Bearer <token>
-Content-type: application/json
 
 # }}}
