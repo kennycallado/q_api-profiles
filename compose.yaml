@@ -170,7 +170,7 @@ services:
   #     - questions_api
   #     - slides_api
   # # }}}
-  # 
+
   # # {{{ externals
   # externals_api:
   #   image: kennycallado/q-api-externals:latest
