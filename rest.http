@@ -38,17 +38,15 @@ Accept: application/json
 # {{{ profile
 
 GET http://localhost:8000/api/v1/profile
-Accpet: application/json
-Authorization: Bearer <token>
+Accept: application/json
+Authorization: Bearer 
 
 # only robot can hits this endpoint
 POST http://localhost:8000/api/v1/profile/token
-Accpet: application/json
-Authorization: Bearer <token>
+Accept: application/json
+Authorization: Bearer <robot token>
 Content-Type: application/json
 
-GET http://localhost:8000/api/v1/profiles/1
-Accept: application/json
-Authorization: Bearer <token>
+"admin"
 
 # }}}
