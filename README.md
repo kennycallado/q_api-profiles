@@ -51,6 +51,9 @@ Algunos ficheros deben ser revisados y actualizados para cada proyecto derivado 
   - Nombre del paquete
   - Revisar dependencias
 - [X] Containerfile
+  - Revisar features
+- [ ] .neoconf.json
+  - Revisar features
   - Nombre del paquete desde Cargo.toml
 - [X] compose.yaml
   - Variables de entorno
