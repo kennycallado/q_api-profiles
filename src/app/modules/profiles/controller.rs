@@ -8,16 +8,38 @@ use crate::app::providers::guards::claims::AccessClaims;
 use super::services::repository as profile_repository;
 
 pub fn routes() -> Vec<rocket::Route> {
-    routes![index, token, token_fails]
+    routes![
+        options_index,
+        options_token,
+        get_index,
+        get_index_none,
+        get_token,
+        get_token_none,
+    ]
 }
 
-#[get("/")]
-fn index() -> &'static str {
+#[options("/")]
+fn options_index() -> Status {
+    Status::Ok
+}
+
+#[options("/token")]
+fn options_token() -> Status {
+    Status::Ok
+}
+
+#[get("/", rank = 1)]
+fn get_index(_access_claims: AccessClaims) -> &'static str {
     "Hello from profiles"
 }
 
+#[get("/", rank = 2)]
+fn get_index_none() -> Status {
+    Status::Unauthorized
+}
+
 #[post("/token", data = "<token>", rank = 1)]
-async fn token(
+async fn get_token(
     db: Db,
     access_claims: AccessClaims,
     token: Json<String>,
@@ -47,6 +69,6 @@ async fn token(
 }
 
 #[post("/token", data = "<_token>", rank = 2)]
-async fn token_fails(_token: Json<String>) -> Status {
+async fn get_token_none(_token: Json<String>) -> Status {
     Status::Unauthorized
 }
