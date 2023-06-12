@@ -17,7 +17,7 @@ pub struct PubNewQuestion {
     pub question: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum QuestionType {
     Checkbox,
