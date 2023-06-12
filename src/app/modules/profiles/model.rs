@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::database::schema::profiles;
 
-#[derive(Debug, Clone, Deserialize, Serialize, Queryable, Identifiable)]
+#[derive(Debug, Deserialize, Serialize, Queryable, Identifiable)]
 #[serde(crate = "rocket::serde")]
 pub struct Profile {
     pub id: i32,
@@ -16,12 +16,22 @@ pub struct Profile {
     pub updated_at: NaiveDateTime,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize, Insertable)]
+#[derive(Debug, Deserialize, Serialize, Insertable)]
 #[serde(crate = "rocket::serde")]
 #[diesel(table_name = profiles)]
 pub struct NewProfile {
     pub user_id: i32,
     pub profile_token: String,
+    pub name: String,
+    pub surname: String,
+    pub email: String,
+}
+
+#[derive(Debug, Deserialize, Serialize, Insertable)]
+#[serde(crate = "rocket::serde")]
+#[diesel(table_name = profiles)]
+pub struct PostProfile {
+    pub user_id: i32,
     pub name: String,
     pub surname: String,
     pub email: String,
