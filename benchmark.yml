@@ -44,4 +44,15 @@ plan:
         Accept: application/json
       url: '/health'
     tags: [ health ]
+
+  - name: Post Index
+    request:
+      method: POST
+      url: '/api/v1/profile/'
+      headers:
+        Accept: application/json
+        Authorization: Bearer {{ TOKEN }}
+        Content-Type: application/json
+      body: '{ "user_id": {{ iteration }}, "name": "name{{ iteration }}", "surname": "surname{{ iteration }}", "email": "user{{ iteration }}@dos.es" }'
+    tags: [ post ]
 ---

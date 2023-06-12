@@ -37,6 +37,18 @@ GET http://localhost:8000/api/v1/profile/
 Accept: application/json
 Authorization: Bearer 
 
+POST http://localhost:8000/api/v1/profile/
+Accept: application/json
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "user_id": 5,
+  "name": "String",
+  "surname": "String",
+  "email": "user@dos.es"
+}
+
 # only robot can hits this endpoint
 POST http://localhost:8000/api/v1/profile/token
 Accept: application/json
