@@ -1,6 +1,6 @@
 use rocket::{http::Status, serde::json::Json};
 
-use crate::config::database::Db;
+use crate::database::connection::Db;
 
 use crate::app::providers::constants::ROBOT_TOKEN_EXPIRATION;
 use crate::app::providers::guards::claims::AccessClaims;
