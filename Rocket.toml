@@ -7,7 +7,6 @@ port       = 8000
 # address    = "0.0.0.0"
 origin_url = "http://localhost:8000"
 # secret_key = ""
-secret_key = "O8qxd87NBHTXSYDFjf8kNdnT+F5INMpLe7hOVFhRn4A="
 
 profile_url   = "http://localhost:8001/api/v1/profile/"
 user_url      = "http://localhost:8002/api/v1/user/"
