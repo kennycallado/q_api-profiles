@@ -12,8 +12,7 @@ use crate::app::modules::profiles::services::repository as profile_repository;
 
 pub fn routes() -> Vec<rocket::Route> {
     routes![
-        options_index,
-        options_token,
+        options_all,
         get_index,
         get_index_none,
         get_token,
@@ -23,13 +22,8 @@ pub fn routes() -> Vec<rocket::Route> {
     ]
 }
 
-#[options("/")]
-fn options_index() -> Status {
-    Status::Ok
-}
-
-#[options("/token")]
-fn options_token() -> Status {
+#[options("/<_..>")]
+fn options_all() -> Status {
     Status::Ok
 }
 
@@ -60,7 +54,7 @@ async fn get_token(
         .into_inner()
         .replace("\"", "")
         .replace("{ ", "")
-        .replace("}", "");
+        .replace("}" , "");
     let token = token.trim_matches('"').trim();
 
     let profile = profile_repository::get_profile_by_token(&db, token.to_string()).await;
