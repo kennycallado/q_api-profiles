@@ -1,13 +1,12 @@
 use rocket::http::Status;
 use rocket::serde::json::Json;
 
-use crate::database::connection::Db;
-
-use crate::app::providers::constants::ROBOT_TOKEN_EXPIRATION;
-use crate::app::providers::guards::claims::AccessClaims;
-
 use crate::app::modules::profiles::handlers::create;
 use crate::app::modules::profiles::model::{PostProfile, Profile};
+use crate::app::providers::constants::ROBOT_TOKEN_EXPIRATION;
+use crate::app::providers::guards::claims::AccessClaims;
+use crate::database::connection::Db;
+
 use crate::app::modules::profiles::services::repository as profile_repository;
 
 pub fn routes() -> Vec<rocket::Route> {
@@ -39,7 +38,7 @@ fn get_index_none() -> Status {
 
 #[post("/token", data = "<token>", rank = 1)]
 async fn get_token(
-    db: Db,
+    db: &Db,
     access_claims: AccessClaims,
     token: Json<String>,
 ) -> Result<Json<i32>, Status> {
@@ -57,7 +56,7 @@ async fn get_token(
         .replace("}" , "");
     let token = token.trim_matches('"').trim();
 
-    let profile = profile_repository::get_profile_by_token(&db, token.to_string()).await;
+    let profile = profile_repository::get_profile_by_token(db, token.to_string()).await;
     match profile {
         Ok(profile) => Ok(Json(profile.user_id)),
         Err(_) => Err(Status::NotFound),
@@ -71,16 +70,16 @@ async fn get_token_none(_token: Json<String>) -> Status {
 
 #[post("/", data = "<post_profile>", rank = 1)]
 async fn post_create(
-    db: Db,
+    db: &Db,
     claims: AccessClaims,
     post_profile: Json<PostProfile>,
 ) -> Result<Json<Profile>, Status> {
     match claims.0.user.role.name.as_str() {
         "admin" => {
-            create::post_create_admin(&db, claims.0.user, post_profile.into_inner()).await
+            create::post_create_admin(db, claims.0.user, post_profile.into_inner()).await
         },
         "robot" => {
-            create::post_create_admin(&db, claims.0.user, post_profile.into_inner()).await
+            create::post_create_admin(db, claims.0.user, post_profile.into_inner()).await
         },
         _ => {
             println!(
