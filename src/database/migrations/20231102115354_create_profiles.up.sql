@@ -13,5 +13,5 @@ ALTER TABLE profiles
 
 SELECT diesel_manage_updated_at('profiles');
 INSERT INTO profiles (user_id, profile_token, name, surname, email) VALUES
-  ( 1, 'admin', 'admin',       'admin',       'admin@admin.es')
+  ( 1, 'admin', 'admin', 'admin', 'admin@admin.es')
   ;
